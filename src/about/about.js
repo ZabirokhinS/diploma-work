@@ -1,11 +1,18 @@
 import './about.css';
 
+//Импорт
 import '../../node_modules/swiper/css/swiper.min.css';
-import Swiper from '../../node_modules/swiper/js/swiper';
+import Swiper from 'swiper';
+import {
+  getFormattedDate
+} from '../js/utils/utils';
+import GithubApi from '../js/modules/githubApi';
+import CommitsCardList from '../js/components/commitCardList';
+import CommitCard from '../js/components/commitCard';
 
-const func = () => {
-  var mySwiper = new Swiper ('.swiper-container', {
-    // Optional parameters
+//Slider
+const initSwiper = () => {
+  const mySwiper = new Swiper ('.swiper-container', {
     slidesPerView: 'auto',
     centeredSlides: true,
     direction: 'horizontal',
@@ -16,12 +23,22 @@ const func = () => {
       el: '.commits__pagination',
       dynamicBullets: true,
     },
-    // Navigation arrows
     navigation: {
       nextEl: '.commits__button_type_right',
       prevEl: '.commits__button_type_left',
     }
-  })
+  });
 };
 
-export { func };
+// Реализация GITHUB API
+const githubApi = new GithubApi();
+const commitCard = new CommitCard({
+  getFormattedDate: getFormattedDate
+});
+const commitsCardList = new CommitsCardList({
+  commitCard: commitCard,
+  githubApi: githubApi,
+  initSwiper: initSwiper
+});
+
+commitsCardList.renderCommits();
