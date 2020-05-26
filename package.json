@@ -1,7 +1,7 @@
 {
   "name": "diploma-work",
   "version": "1.0.0",
-  "description": "Данный репозиторий является дипломной работы Y.praktikum",
+  "description": "",
   "main": "src/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
